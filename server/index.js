@@ -10,7 +10,7 @@ import http from 'http';
 import Router from 'koa-router';
 import koaLogger from 'koa-logger';
 // import serve from 'koa-static';
-import middleware from 'koa-webpack';
+import koaWebpack from 'koa-webpack';
 import bodyParser from 'koa-bodyparser';
 import session from 'koa-generic-session';
 import _ from 'lodash';
@@ -25,9 +25,13 @@ export default () => {
   app.use(session(app));
   app.use(bodyParser());
   // app.use(serve(path.join(__dirname, '..', 'public')));
-  app.use(middleware({
-    config: webpackConfig,
-  }));
+  koaWebpack({ config: webpackConfig })
+    .then((middleware) => {
+      app.use(middleware);
+    });
+  // app.use(middleware({
+  //   config: webpackConfig,
+  // }));
 
   const router = new Router();
 
