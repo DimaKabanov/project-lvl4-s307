@@ -1,5 +1,5 @@
 // import { combineReducers } from 'redux';
 
-export default () => {
-
+export default (a) => {
+  console.log(a)
 }
