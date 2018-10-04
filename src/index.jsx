@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import ChatContainer from './containers/Chat';
+import Chat from './components/Chat';
 import store from './store';
 
 const dom = (
   <Provider store={store}>
-    <ChatContainer />
+    <Chat />
   </Provider>
 );
 
