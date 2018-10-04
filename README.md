@@ -4,6 +4,8 @@
 [![Build Status](https://travis-ci.org/DimaKabanov/project-lvl4-s307.svg?branch=master)](https://travis-ci.org/DimaKabanov/project-lvl4-s307)
 [![jest](https://facebook.github.io/jest/img/jest-badge.svg)](https://github.com/facebook/jest)
 
+Link to app - https://heroku--chat.herokuapp.com/
+
 ## Setup
 
 ```console
