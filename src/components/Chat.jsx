@@ -1,7 +1,7 @@
 import cookies from 'js-cookie';
 import React from 'react';
-import ChannelList from '../containers/ChannelList';
-import MessageList from '../containers/MessageList';
+import ChannelList from './ChannelList';
+import MessageList from './MessageList';
 import MessageForm from './MessageForm';
 
 const Chat = () => (

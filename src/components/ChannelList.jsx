@@ -1,9 +1,17 @@
 import React from 'react';
 import cn from 'classnames';
+import connect from '../connect';
 
-export default class ChannelList extends React.Component {
+const mapStateToProps = ({ channels, currentChannelId }) => {
+  const props = { channels, currentChannelId };
+  return props;
+};
+
+@connect(mapStateToProps)
+class ChannelList extends React.Component {
   getListItemClass = (channelId) => {
     const { currentChannelId } = this.props;
+
     return cn({
       'list-group-item': true,
       'list-group-item-action': true,
@@ -29,3 +37,5 @@ export default class ChannelList extends React.Component {
     );
   }
 }
+
+export default ChannelList;

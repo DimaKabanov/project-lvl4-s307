@@ -7,8 +7,12 @@ import cookies from 'js-cookie';
 import app from './index.jsx';
 
 faker.locale = 'ru';
-const userName = faker.name.findName();
-cookies.set('username', userName);
+const currentUserName = cookies.get('username');
+const userName = currentUserName || faker.name.findName();
+
+if (!currentUserName) {
+  cookies.set('username', userName);
+}
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
