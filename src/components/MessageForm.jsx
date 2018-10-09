@@ -14,10 +14,9 @@ class MessageForm extends React.Component {
     const { sendMessage, currentChannelId } = this.props;
     const messageData = {
       ...message,
-      currentChannelId,
       username: cookies.get('username'),
     };
-    sendMessage(messageData);
+    sendMessage(messageData, currentChannelId);
   }
 
   render() {
