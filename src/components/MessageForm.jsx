@@ -11,12 +11,12 @@ const mapStateToProps = ({ currentChannelId, sendMessageState }) => {
 @connect(mapStateToProps)
 class MessageForm extends React.Component {
   sendMessage = (message) => {
-    const { sendMessage, currentChannelId } = this.props;
+    const { sendMessage, currentChannelId, reset } = this.props;
     const messageData = {
       ...message,
       username: cookies.get('username'),
     };
-    sendMessage(messageData, currentChannelId);
+    sendMessage(messageData, currentChannelId, reset);
   }
 
   render() {
