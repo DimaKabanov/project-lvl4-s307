@@ -4,14 +4,13 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
 
 /* eslint-disable no-underscore-dangle */
-const reduxDevtools = window.__REDUX_DEVTOOLS_EXTENSION__;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /* eslint-enable */
 
 export default createStore(
   reducers,
   gon,
-  compose(
+  composeEnhancers(
     applyMiddleware(thunk),
-    reduxDevtools && reduxDevtools(),
   ),
 );
