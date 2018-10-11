@@ -6,9 +6,9 @@ import socket from '../socket';
 export const channelCreated = createAction('CHANNEL_CREATED');
 export const setCurrentChannel = createAction('SET_CURRENT_CHANNEL');
 
-export const sendMessageRequest = createAction('SEND_MESSAGE_REQUEST');
-export const sendMessageSuccess = createAction('SEND_MESSAGE_SUCCESS');
-export const sendMessageFailure = createAction('SEND_MESSAGE_FAILURE');
+export const sendMessageRequest = createAction('MESSAGE_SEND_REQUEST');
+export const sendMessageSuccess = createAction('MESSAGE_SEND_SUCCESS');
+export const sendMessageFailure = createAction('MESSAGE_SEND_FAILURE');
 
 export const sendMessage = (messageData, channelId, resetForm) => async (dispatch) => {
   dispatch(sendMessageRequest());

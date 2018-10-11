@@ -1,4 +1,3 @@
-import gon from 'gon';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
@@ -7,10 +6,12 @@ import reducers from './reducers';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /* eslint-enable */
 
-export default createStore(
-  reducers,
-  gon,
-  composeEnhancers(
-    applyMiddleware(thunk),
-  ),
+export default gon => (
+  createStore(
+    reducers,
+    gon,
+    composeEnhancers(
+      applyMiddleware(thunk),
+    ),
+  )
 );

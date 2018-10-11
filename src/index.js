@@ -1,17 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/application.css';
-import faker from 'faker';
-import cookies from 'js-cookie';
-import './index.jsx';
+import gon from 'gon';
+import app from './app';
+import { setUserName } from './user';
+import { getNewMessage } from './actions';
 
-faker.locale = 'ru';
-const currentUserName = cookies.get('username');
-const userName = currentUserName || faker.name.findName();
-
-if (!currentUserName) {
-  cookies.set('username', userName);
-}
+setUserName();
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
+
+const store = app(gon);
+
+store.dispatch(getNewMessage());
