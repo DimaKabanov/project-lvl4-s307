@@ -3,7 +3,7 @@ import '../assets/application.css';
 import gon from 'gon';
 import app from './app';
 import { setUserName } from './user';
-import { getNewMessage } from './actions';
+import { getNewMessage, getNewChannel, removeChannel } from './actions';
 
 setUserName();
 
@@ -14,3 +14,5 @@ if (process.env.NODE_ENV !== 'production') {
 const store = app(gon);
 
 store.dispatch(getNewMessage());
+store.dispatch(getNewChannel());
+store.dispatch(removeChannel());

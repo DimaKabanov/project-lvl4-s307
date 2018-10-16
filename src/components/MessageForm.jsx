@@ -9,6 +9,7 @@ const mapStateToProps = ({ currentChannelId, sendMessageState }) => {
 };
 
 @connect(mapStateToProps)
+@reduxForm({ form: 'newMessage' })
 class MessageForm extends React.Component {
   sendMessage = (message) => {
     const { sendMessage, currentChannelId, reset } = this.props;
@@ -16,12 +17,11 @@ class MessageForm extends React.Component {
       ...message,
       username: getUserName(),
     };
-    sendMessage(messageData, currentChannelId, reset);
+    return sendMessage(messageData, currentChannelId, reset);
   }
 
   render() {
-    const { handleSubmit, sendMessageState } = this.props;
-    const disabled = sendMessageState === 'requested';
+    const { handleSubmit, pristine, submitting } = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.sendMessage)}>
@@ -36,7 +36,7 @@ class MessageForm extends React.Component {
         <button
           type="submit"
           className="btn btn-primary"
-          disabled={disabled}
+          disabled={pristine || submitting}
         >
           Send message
         </button>
@@ -45,6 +45,4 @@ class MessageForm extends React.Component {
   }
 }
 
-export default reduxForm({
-  form: 'newMessage',
-})(MessageForm);
+export default MessageForm;

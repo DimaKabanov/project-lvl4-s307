@@ -10,12 +10,12 @@ const mapStateToProps = ({ messages }) => {
 class MessageList extends React.Component {
   renderMessage = messages => (
     messages.map(message => (
-      <div className="mb-2" key={message.id}>
+      <p className="mb-2" key={message.id}>
         <strong className="mr-2">
           {`${message.username}:`}
         </strong>
         {message.message}
-      </div>
+      </p>
     ))
   )
 
