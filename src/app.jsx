@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import Chat from './components/Chat';
+import { UserContext, user } from './context';
 import getStore from './store';
 
 export default (gon) => {
@@ -11,7 +12,9 @@ export default (gon) => {
 
   const dom = (
     <Provider store={store}>
-      <Chat />
+      <UserContext.Provider value={user}>
+        <Chat />
+      </UserContext.Provider>
     </Provider>
   );
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import connect from '../connect';
-import { getUserName } from '../user';
 
 const mapStateToProps = ({ currentChannelId, sendMessageState }) => {
   const props = { currentChannelId, sendMessageState };
@@ -12,10 +11,16 @@ const mapStateToProps = ({ currentChannelId, sendMessageState }) => {
 @reduxForm({ form: 'newMessage' })
 class MessageForm extends React.Component {
   sendMessage = (message) => {
-    const { sendMessage, currentChannelId, reset } = this.props;
+    const {
+      sendMessage,
+      currentChannelId,
+      reset,
+      currentUser: { name },
+    } = this.props;
+
     const messageData = {
       ...message,
-      username: getUserName(),
+      username: name,
     };
     return sendMessage(messageData, currentChannelId, reset);
   }

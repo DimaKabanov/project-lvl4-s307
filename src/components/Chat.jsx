@@ -3,6 +3,7 @@ import React from 'react';
 import ChannelList from './ChannelList';
 import MessageList from './MessageList';
 import MessageForm from './MessageForm';
+import { UserContext } from '../context';
 
 const Chat = () => (
   <div className="row">
@@ -12,7 +13,11 @@ const Chat = () => (
     </div>
     <div className="col-9">
       <MessageList />
-      <MessageForm />
+      <UserContext.Consumer>
+        {user => (
+          <MessageForm currentUser={user.currentUser} />
+        )}
+      </UserContext.Consumer>
     </div>
   </div>
 );
