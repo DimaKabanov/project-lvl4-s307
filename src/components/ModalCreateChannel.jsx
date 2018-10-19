@@ -45,7 +45,7 @@ class ModalCreateChannel extends React.Component {
               component="input"
               type="text"
               className="form-control mb-3"
-              id="newChannelName"
+              id="channelName"
             />
             <button
               type="button"

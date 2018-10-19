@@ -23,6 +23,15 @@ const modalDeleteChannel = handleActions({
   },
 }, { channel: {}, isOpen: false });
 
+const modalRenameChannel = handleActions({
+  [actions.openRenameChannelModal](state, { payload: channel }) {
+    return { channel, isOpen: true };
+  },
+  [actions.closeRenameChannelModal]() {
+    return { channel: {}, isOpen: false };
+  },
+}, { channel: {}, isOpen: false });
+
 // CHANNELS
 
 const addChannelState = handleActions({
@@ -30,10 +39,10 @@ const addChannelState = handleActions({
     return 'requested';
   },
   [actions.addChannelSuccess]() {
-    return 'failed';
+    return 'successed';
   },
   [actions.addChannelFailure]() {
-    return 'successed';
+    return 'failed';
   },
 }, 'none');
 
@@ -42,10 +51,22 @@ const delChannelState = handleActions({
     return 'requested';
   },
   [actions.delChannelSuccess]() {
-    return 'failed';
+    return 'successed';
   },
   [actions.delChannelFailure]() {
+    return 'failed';
+  },
+}, 'none');
+
+const renameChannelState = handleActions({
+  [actions.renameChannelRequest]() {
+    return 'requested';
+  },
+  [actions.renameChannelSuccess]() {
     return 'successed';
+  },
+  [actions.renameChannelFailure]() {
+    return 'failed';
   },
 }, 'none');
 
@@ -55,6 +76,9 @@ const channels = handleActions({
   },
   [actions.channelDeleted](state, { payload: id }) {
     return state.filter(channel => channel.id !== id);
+  },
+  [actions.channelRenamed](state, { payload: channel }) {
+    return [...state.filter(c => c.id !== channel.id), channel];
   },
 }, {});
 
@@ -91,7 +115,9 @@ export default combineReducers({
   currentChannelId,
   addChannelState,
   delChannelState,
+  renameChannelState,
   modalCreateChannel,
   modalDeleteChannel,
+  modalRenameChannel,
   form: formReducer,
 });

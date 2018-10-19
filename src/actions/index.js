@@ -11,6 +11,9 @@ export const closeAddChannelModal = createAction('CLOSE_ADD_CHANNEL_MODAL');
 export const openDelChannelModal = createAction('OPEN_DEL_CHANNEL_MODAL');
 export const closeDelChannelModal = createAction('CLOSE_DEL_CHANNEL_MODAL');
 
+export const openRenameChannelModal = createAction('OPEN_RENAME_CHANNEL_MODAL');
+export const closeRenameChannelModal = createAction('CLOSE_RENAME_CHANNEL_MODAL');
+
 // CHANNELS
 
 export const setCurrentChannel = createAction('SET_CURRENT_CHANNEL');
@@ -60,6 +63,31 @@ export const channelDeleted = createAction('CHANNEL_DELETED');
 export const removeChannel = () => (dispatch) => {
   socket.on('removeChannel', (channel) => {
     dispatch(channelDeleted(channel.data.id));
+  });
+};
+
+export const renameChannelRequest = createAction('CHANNEL_RENAME_REQUEST');
+export const renameChannelSuccess = createAction('CHANNEL_RENAME_SUCCESS');
+export const renameChannelFailure = createAction('CHANNEL_RENAME_FAILURE');
+
+export const renameChannel = (channelName, channelId, resetForm) => async (dispatch) => {
+  dispatch(renameChannelRequest());
+  try {
+    const data = { attributes: { ...channelName } };
+    const response = await axios.patch(routes.channelUrl(channelId), { data });
+    dispatch(renameChannelSuccess({ channel: response.data }));
+    resetForm();
+    dispatch(closeRenameChannelModal());
+  } catch (evt) {
+    dispatch(renameChannelFailure());
+  }
+};
+
+export const channelRenamed = createAction('CHANNEL_RENAMED');
+
+export const changeChannelName = () => (dispatch) => {
+  socket.on('renameChannel', (channel) => {
+    dispatch(channelRenamed(channel.data.attributes));
   });
 };
 
