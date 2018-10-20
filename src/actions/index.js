@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { createAction } from 'redux-actions';
 import routes from '../routes';
-import socket from '../socket';
 
 // MODALS
 
@@ -31,17 +30,13 @@ export const addChannel = (channelData, resetForm) => async (dispatch) => {
     resetForm();
     dispatch(closeAddChannelModal());
   } catch (evt) {
+    // eslint-disable-next-line no-console
+    console.error(evt);
     dispatch(addChannelFailure());
   }
 };
 
 export const channelCreated = createAction('CHANNEL_CREATED');
-
-export const getNewChannel = () => (dispatch) => {
-  socket.on('newChannel', (channel) => {
-    dispatch(channelCreated(channel.data.attributes));
-  });
-};
 
 export const delChannelRequest = createAction('CHANNEL_DEL_REQUEST');
 export const delChannelSuccess = createAction('CHANNEL_DEL_SUCCESS');
@@ -54,17 +49,13 @@ export const deleteChannel = channelId => async (dispatch) => {
     dispatch(delChannelSuccess());
     dispatch(closeDelChannelModal());
   } catch (evt) {
+    // eslint-disable-next-line no-console
+    console.error(evt);
     dispatch(addChannelFailure());
   }
 };
 
 export const channelDeleted = createAction('CHANNEL_DELETED');
-
-export const removeChannel = () => (dispatch) => {
-  socket.on('removeChannel', (channel) => {
-    dispatch(channelDeleted(channel.data.id));
-  });
-};
 
 export const renameChannelRequest = createAction('CHANNEL_RENAME_REQUEST');
 export const renameChannelSuccess = createAction('CHANNEL_RENAME_SUCCESS');
@@ -79,17 +70,13 @@ export const renameChannel = (channelName, channelId, resetForm) => async (dispa
     resetForm();
     dispatch(closeRenameChannelModal());
   } catch (evt) {
+    // eslint-disable-next-line no-console
+    console.error(evt);
     dispatch(renameChannelFailure());
   }
 };
 
 export const channelRenamed = createAction('CHANNEL_RENAMED');
-
-export const changeChannelName = () => (dispatch) => {
-  socket.on('renameChannel', (channel) => {
-    dispatch(channelRenamed(channel.data.attributes));
-  });
-};
 
 // MESSAGES
 
@@ -105,14 +92,10 @@ export const sendMessage = (messageData, channelId, resetForm) => async (dispatc
     dispatch(sendMessageSuccess({ message: response.data }));
     resetForm();
   } catch (evt) {
+    // eslint-disable-next-line no-console
+    console.error(evt);
     dispatch(sendMessageFailure());
   }
 };
 
 export const messageReceived = createAction('MESSAGE_RECEIVED');
-
-export const getNewMessage = () => (dispatch) => {
-  socket.on('newMessage', (message) => {
-    dispatch(messageReceived(message.data.attributes));
-  });
-};

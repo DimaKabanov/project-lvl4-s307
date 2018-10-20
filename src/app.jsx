@@ -4,10 +4,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import Chat from './components/Chat';
-import { UserContext, user } from './context';
+import UserContext from './context';
 import getStore from './store';
 
-export default (gon) => {
+export default (gon, user) => {
   const store = getStore(gon);
 
   const dom = (

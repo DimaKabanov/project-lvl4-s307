@@ -77,8 +77,13 @@ const channels = handleActions({
   [actions.channelDeleted](state, { payload: id }) {
     return state.filter(channel => channel.id !== id);
   },
-  [actions.channelRenamed](state, { payload: channel }) {
-    return [...state.filter(c => c.id !== channel.id), channel];
+  [actions.channelRenamed](state, { payload: updatedChannelData }) {
+    return state.map((channel) => {
+      if (channel.id === updatedChannelData.id) {
+        return { ...channel, name: updatedChannelData.name };
+      }
+      return channel;
+    });
   },
 }, {});
 
