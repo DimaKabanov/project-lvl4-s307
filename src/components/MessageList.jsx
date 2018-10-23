@@ -1,8 +1,9 @@
 import React from 'react';
+import { messagesSelector } from '../selectors';
 import connect from '../connect';
 
-const mapStateToProps = ({ messages }) => {
-  const props = { messages };
+const mapStateToProps = (state) => {
+  const props = { messages: messagesSelector(state) };
   return props;
 };
 

@@ -1,12 +1,17 @@
 import React from 'react';
 import cn from 'classnames';
 import connect from '../connect';
+import { channelsSelector } from '../selectors';
 import ModalCreateChannel from './ModalCreateChannel';
 import ModalDeleteChannel from './ModalDeleteChannel';
 import ModalRenameChannel from './ModalRenameChannel';
 
-const mapStateToProps = ({ channels, currentChannelId }) => {
-  const props = { channels, currentChannelId };
+const mapStateToProps = (state) => {
+  const { result: { currentChannelId } } = state;
+  const props = {
+    channels: channelsSelector(state),
+    currentChannelId,
+  };
   return props;
 };
 
@@ -25,6 +30,11 @@ class ChannelList extends React.Component {
   onOpenRenameChannelModal = channel => () => {
     const { openRenameChannelModal } = this.props;
     openRenameChannelModal(channel);
+  }
+
+  onSwitchActiveChannel = id => () => {
+    const { setCurrentChannel } = this.props;
+    setCurrentChannel(id);
   }
 
   renderControls = channel => (
@@ -61,10 +71,17 @@ class ChannelList extends React.Component {
 
   renderСhannels = () => {
     const { channels } = this.props;
+    // console.log(channels);
 
     return channels.map(({ name, id, removable }) => (
       <li key={id} className="nav-item d-flex align-items-center">
-        <button className={this.getListItemClass(id)} type="button">{name}</button>
+        <button
+          onClick={this.onSwitchActiveChannel(id)}
+          className={this.getListItemClass(id)}
+          type="button"
+        >
+          {name}
+        </button>
         {removable && this.renderControls({ name, id })}
       </li>
     ));

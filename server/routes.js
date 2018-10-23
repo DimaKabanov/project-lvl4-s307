@@ -26,9 +26,9 @@ export default (router, io) => {
     .post('/channels', (ctx) => {
       const { data: { attributes: { name } } } = ctx.request.body;
       const channel = {
+        id: getNextId(),
         name,
         removable: true,
-        id: getNextId(),
       };
       state.channels.push(channel);
       ctx.status = 201;

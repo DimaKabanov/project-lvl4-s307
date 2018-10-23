@@ -6,10 +6,10 @@ import cookies from 'js-cookie';
 import socket from './socket';
 import app from './app';
 import {
-  channelCreated,
-  channelDeleted,
-  channelRenamed,
-  messageReceived,
+  createChannel,
+  removeChannel,
+  editChannel,
+  addMessage,
 } from './actions';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -34,17 +34,17 @@ const user = {
 const store = app(gon, user);
 
 socket.on('newChannel', (channel) => {
-  store.dispatch(channelCreated(channel.data.attributes));
+  store.dispatch(createChannel(channel.data.attributes));
 });
 
 socket.on('removeChannel', (channel) => {
-  store.dispatch(channelDeleted(channel.data.id));
+  store.dispatch(removeChannel(channel.data.id));
 });
 
 socket.on('renameChannel', (channel) => {
-  store.dispatch(channelRenamed(channel.data.attributes));
+  store.dispatch(editChannel(channel.data.attributes));
 });
 
 socket.on('newMessage', (message) => {
-  store.dispatch(messageReceived(message.data.attributes));
+  store.dispatch(addMessage(message.data.attributes));
 });

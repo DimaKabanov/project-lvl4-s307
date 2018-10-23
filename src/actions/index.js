@@ -30,13 +30,12 @@ export const addChannel = (channelData, resetForm) => async (dispatch) => {
     resetForm();
     dispatch(closeAddChannelModal());
   } catch (evt) {
-    // eslint-disable-next-line no-console
     console.error(evt);
     dispatch(addChannelFailure());
   }
 };
 
-export const channelCreated = createAction('CHANNEL_CREATED');
+export const createChannel = createAction('CHANNEL_CREATE');
 
 export const delChannelRequest = createAction('CHANNEL_DEL_REQUEST');
 export const delChannelSuccess = createAction('CHANNEL_DEL_SUCCESS');
@@ -49,13 +48,12 @@ export const deleteChannel = channelId => async (dispatch) => {
     dispatch(delChannelSuccess());
     dispatch(closeDelChannelModal());
   } catch (evt) {
-    // eslint-disable-next-line no-console
     console.error(evt);
     dispatch(addChannelFailure());
   }
 };
 
-export const channelDeleted = createAction('CHANNEL_DELETED');
+export const removeChannel = createAction('CHANNEL_REMOVE');
 
 export const renameChannelRequest = createAction('CHANNEL_RENAME_REQUEST');
 export const renameChannelSuccess = createAction('CHANNEL_RENAME_SUCCESS');
@@ -64,19 +62,18 @@ export const renameChannelFailure = createAction('CHANNEL_RENAME_FAILURE');
 export const renameChannel = (channelName, channelId, resetForm) => async (dispatch) => {
   dispatch(renameChannelRequest());
   try {
-    const data = { attributes: { ...channelName } };
+    const data = { attributes: channelName };
     const response = await axios.patch(routes.channelUrl(channelId), { data });
     dispatch(renameChannelSuccess({ channel: response.data }));
     resetForm();
     dispatch(closeRenameChannelModal());
   } catch (evt) {
-    // eslint-disable-next-line no-console
     console.error(evt);
     dispatch(renameChannelFailure());
   }
 };
 
-export const channelRenamed = createAction('CHANNEL_RENAMED');
+export const editChannel = createAction('CHANNEL_EDIT');
 
 // MESSAGES
 
@@ -92,10 +89,9 @@ export const sendMessage = (messageData, channelId, resetForm) => async (dispatc
     dispatch(sendMessageSuccess({ message: response.data }));
     resetForm();
   } catch (evt) {
-    // eslint-disable-next-line no-console
     console.error(evt);
     dispatch(sendMessageFailure());
   }
 };
 
-export const messageReceived = createAction('MESSAGE_RECEIVED');
+export const addMessage = createAction('MESSAGE_ADD');

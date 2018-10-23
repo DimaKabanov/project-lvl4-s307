@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { reducer as formReducer } from 'redux-form';
+import { omit, cloneDeep, update } from 'lodash';
 import * as actions from '../actions';
 
 // MODALS
@@ -70,28 +71,24 @@ const renameChannelState = handleActions({
   },
 }, 'none');
 
-const channels = handleActions({
-  [actions.channelCreated](state, { payload: channel }) {
-    return [...state, channel];
+const entities = handleActions({
+  [actions.createChannel](state, { payload: newChannel }) {
+    const { channels } = state;
+    const updatedChannels = { ...channels, [newChannel.id]: newChannel };
+    return { channels: updatedChannels };
   },
-  [actions.channelDeleted](state, { payload: id }) {
-    return state.filter(channel => channel.id !== id);
+  [actions.removeChannel](state, { payload: id }) {
+    const { channels } = state;
+    return { channels: omit(channels, id) };
   },
-  [actions.channelRenamed](state, { payload: updatedChannelData }) {
-    return state.map((channel) => {
-      if (channel.id === updatedChannelData.id) {
-        return { ...channel, name: updatedChannelData.name };
-      }
-      return channel;
-    });
+  [actions.editChannel](state, { payload: updatedChannel }) {
+    const { channels } = state;
+    const updatedChannels = update(cloneDeep(channels), updatedChannel.id, channel => (
+      { ...channel, name: updatedChannel.name }
+    ));
+    return { channels: updatedChannels };
   },
 }, {});
-
-const currentChannelId = handleActions({
-  [actions.setCurrentChannel](state, { payload: id }) {
-    return id;
-  },
-}, 1);
 
 // MESSAGES
 
@@ -107,17 +104,29 @@ const sendMessageState = handleActions({
   },
 }, 'none');
 
-const messages = handleActions({
-  [actions.messageReceived](state, { payload }) {
-    return [...state, payload];
+const result = handleActions({
+  [actions.addMessage](state, { payload }) {
+    const { messages } = state;
+    return {
+      ...state,
+      messages: [...messages, payload],
+    };
   },
-}, []);
+  [actions.setCurrentChannel](state, { payload: id }) {
+    return {
+      ...state,
+      currentChannelId: id,
+    };
+  },
+}, {
+  messages: [],
+  currentChannelId: 1,
+});
 
 export default combineReducers({
   sendMessageState,
-  channels,
-  messages,
-  currentChannelId,
+  entities,
+  result,
   addChannelState,
   delChannelState,
   renameChannelState,
