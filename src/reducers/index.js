@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { reducer as formReducer } from 'redux-form';
-import { omit, cloneDeep, update } from 'lodash';
+import { omit } from 'lodash';
 import * as actions from '../actions';
 
 // MODALS
@@ -83,9 +83,7 @@ const entities = handleActions({
   },
   [actions.editChannel](state, { payload: updatedChannel }) {
     const { channels } = state;
-    const updatedChannels = update(cloneDeep(channels), updatedChannel.id, channel => (
-      { ...channel, name: updatedChannel.name }
-    ));
+    const updatedChannels = { ...channels, [updatedChannel.id]: updatedChannel }
     return { channels: updatedChannels };
   },
 }, {});
