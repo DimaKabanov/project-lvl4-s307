@@ -11,6 +11,10 @@ const mapStateToProps = ({ renameChannelState, modalRenameChannel }) => {
 @connect(mapStateToProps)
 @reduxForm({ form: 'newChannelName' })
 class ModalRenameChannel extends React.Component {
+  componentDidUpdate() {
+    this.renameChannelInput.getRenderedComponent().focus();
+  }
+
   renameChannel = channelId => (channelName) => {
     const { renameChannel, reset } = this.props;
     return renameChannel(channelName, channelId, reset);
@@ -49,6 +53,8 @@ class ModalRenameChannel extends React.Component {
               className="form-control mb-3"
               placeholder="Enter new name here"
               id="newChannelName"
+              ref={(input) => { this.renameChannelInput = input; }}
+              withRef
             />
             <button
               type="button"

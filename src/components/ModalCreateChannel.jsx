@@ -11,6 +11,10 @@ const mapStateToProps = ({ addChannelState, modalCreateChannel }) => {
 @connect(mapStateToProps)
 @reduxForm({ form: 'newChannel' })
 class ModalCreateChannel extends React.Component {
+  componentDidUpdate() {
+    this.createChannelInput.getRenderedComponent().focus();
+  }
+
   addChannel = (channelName) => {
     const { addChannel, reset } = this.props;
     return addChannel(channelName, reset);
@@ -46,6 +50,8 @@ class ModalCreateChannel extends React.Component {
               type="text"
               className="form-control mb-3"
               id="channelName"
+              ref={(input) => { this.createChannelInput = input; }}
+              withRef
             />
             <button
               type="button"

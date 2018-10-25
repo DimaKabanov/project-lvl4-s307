@@ -37,6 +37,7 @@ class MessageForm extends React.Component {
           component="textarea"
           className="form-control mb-3"
           rows="3"
+          autoFocus
         />
 
         <button
