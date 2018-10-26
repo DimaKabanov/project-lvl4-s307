@@ -83,7 +83,7 @@ const entities = handleActions({
   },
   [actions.editChannel](state, { payload: updatedChannel }) {
     const { channels } = state;
-    const updatedChannels = { ...channels, [updatedChannel.id]: updatedChannel }
+    const updatedChannels = { ...channels, [updatedChannel.id]: updatedChannel };
     return { channels: updatedChannels };
   },
 }, {});
