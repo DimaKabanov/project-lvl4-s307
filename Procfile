@@ -1,1 +1,1 @@
-web: node dist/bin/slack
+web: npm run build && node ./dist/bin/slack
