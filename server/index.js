@@ -23,7 +23,7 @@ export default () => {
   app.use(session(app));
   app.use(bodyParser());
   // app.use(serve(path.join(__dirname, '..', 'public')));
-  koaWebpack({ config: webpackConfig }, { hotClient: webpackConfig.mode === 'development' })
+  koaWebpack({ config: webpackConfig })
     .then((middleware) => {
       app.use(middleware);
     });
