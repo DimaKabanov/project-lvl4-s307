@@ -1,1 +1,1 @@
-web: npm run build && node ./dist/bin/slack
+web: NODE_ENV='production' node ./dist/bin/slack
