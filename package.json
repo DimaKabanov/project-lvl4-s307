@@ -15,7 +15,7 @@
     "build-app": "npx webpack -p --env production",
     "build": "npm run build-app && npm run build-server",
     "postinstall": "npm run build",
-    "heroku-postbuild": "npm run webpack:deploy"
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
