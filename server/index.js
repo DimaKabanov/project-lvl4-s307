@@ -27,9 +27,6 @@ export default () => {
     .then((middleware) => {
       app.use(middleware);
     });
-  // app.use(middleware({
-  //   config: webpackConfig,
-  // }));
 
   const router = new Router();
 
