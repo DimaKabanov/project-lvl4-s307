@@ -11,11 +11,12 @@
   },
   "scripts": {
     "test": "jest",
+    "webpack": "webpack",
     "build-server": "babel server --out-dir dist --source-maps inline",
     "build-app": "npx webpack -p --env production",
     "build": "npm run build-app && npm run build-server",
     "postinstall": "npm run build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "webpack -p"
   },
   "repository": {
     "type": "git",
