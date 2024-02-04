@@ -1,0 +1,21 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "Simple chat",
+  "main": "index.js",
+  "scripts": {
+    "start": "start-server -s ./frontend/build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DimaKabanov/project-lvl4-s307.git"
+  },
+  "author": "Dmitry Kabanov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DimaKabanov/project-lvl4-s307/issues"
+  },
+  "dependencies": {
+    "@hexlet/chat-server": "^2.0.0"
+  }
+}
